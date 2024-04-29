@@ -18,11 +18,14 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'adopt'
+          distribution: 'temurin'
           cache: gradle
 
       - name: Grant execute permission to gradlew
         run: chmod +x gradlew   # Adding this step to grant execute permission to gradlew
 
       - name: Build with Gradle
-        run: ./gradlew assembleDebug
+        run: ./gradlew build
+
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
