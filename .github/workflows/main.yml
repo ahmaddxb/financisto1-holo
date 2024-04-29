@@ -20,5 +20,9 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew   # Adding this step to grant execute permission to gradlew
+
+
       - name: Build with Gradle
         run: ./gradlew assembleDebug
