@@ -78,7 +78,7 @@
     <string name="warning">Warning</string>
     <string name="no_accounts">You should start with creating an account. Tap the \'+\' at the bottom…</string>
     <string name="no_budgets">No budgets</string>
-    <string name="loading">Loading ...</string>
+    <string name="loading">Loading…</string>
     <string name="no_transactions">No transactions</string>
     <string name="no_categories">No categories</string>
     <string name="no_currencies">No currencies</string>
@@ -561,7 +561,7 @@
     <string name="enable_widget">Enable widget</string>
     <string name="enable_widget_summary">Show account total on the widget</string>
     <string name="attach_picture">Attach picture</string>
-    <string name="new_picture">Take a picture</string>
+    <string name="new_picture">Pick a picture</string>
 
     <string name="credits">Credits</string>
     <string name="sort_by_title">Sort by title</string>
@@ -718,7 +718,7 @@
     <string name="import_export">Import/Export</string>
     <string name="qif_import_disclaimer">*WARNING* Please note that all existing data will be removed!</string>
 
-    <string name="googledrive" translatable="false">Google Drive</string>
+    <string name="googledrive">Google Drive</string>
     <string name="googledrive_authorize">Enable Sync to Google Drive</string>
     <string name="googledrive_authorize_summary">Sync your picture in Drive</string>
     <string name="googledrive_upload">Upload pictures</string>
@@ -777,6 +777,10 @@
     <string name="dropbox_upload_backup_summary">Upload database backups to Dropbox</string>
     <string name="dropbox_upload_autobackup">Upload Auto-backups</string>
     <string name="dropbox_upload_autobackup_summary">Upload database auto-backups to Dropbox</string>
+    <string name="dropbox_upload_pictures">Upload Pictures</string>
+    <string name="dropbox_upload_pictures_summary">Upload attached pictures to Dropbox</string>
+    <string name="dropbox_download_pictures">Download Pictures</string>
+    <string name="dropbox_download_pictures_summary">Download attached pictures not found locally from Dropbox</string>
     <string name="dropbox_uploading_file">Uploading file to Dropbox…</string>
     <string name="dropbox_error">Error while working with Dropbox</string>
     <string name="dropbox_auth_error">Not authorized to upload to Dropbox. Please check your Preferences.</string>
@@ -904,7 +908,6 @@
     <string name="exchange_rate_provider_error">Something wrong with the exchange rates provider. Response from the service - %s</string>
     <string name="exchange_rate_provider">Exchange Rate Provider</string>
     <string name="exchange_rate_provider_summary">Select provider to download exchange rates</string>
-    <string name="openexchangerates_app_id" translatable="false">OpenExchangeRates App ID</string>
     <string name="openexchangerates_app_id_summary">Please register a free account on OpenExchangeRates and provide your App ID</string>
     <string name="exchange_rate_default_currency_no_rate">Can\'t obtain default currency\'s exchange rate to USD</string>
     <string name="exchange_rate_set_default_currency">Please set Default Currency (Menu -&gt; Entities -&gt; Currencies)</string>
@@ -913,6 +916,7 @@
     <string name="use_exchange_rate_service_with_historical">Please select an exchange rate service providing historical rates, like OpenExchangeRates.org</string>
 
     <string name="export_splits">Export splits</string>
+    <string name="export_split_parents">Export split parents</string>
 
     <string name="account_by_currency">All %s Accounts</string>
     <string name="budget_type_saving">Saving</string>
@@ -948,6 +952,11 @@
     <string name="google_drive_upload_backup_summary">Upload database backups to Google Drive</string>
     <string name="google_drive_upload_autobackup">Upload Auto-backups</string>
     <string name="google_drive_upload_autobackup_summary">Upload database auto-backups to Google Drive</string>
+    <string name="google_drive_upload_pictures">Upload Pictures</string>
+    <string name="google_drive_upload_pictures_summary">Upload attached pictures to Google Drive</string>
+    <string name="google_drive_download_pictures">Download Pictures</string>
+    <string name="google_drive_download_pictures_summary">Download attached pictures not found locally from Google Drive</string>
+    <string name="google_drive_error">Not authorized to Google Drive. Please check your Preferences.</string>
 
     <string name="backup_restore_database_online">Backup/Restore Online</string>
     <string name="backup_database_online_google_drive">Google Drive Backup</string>
@@ -1074,4 +1083,31 @@
     <string name="confirm_create_entity">Create "%s" ?</string>
 
     <string name="transaction_show_in_account_blotter">Show in account blotter</string>
+    <string name="invalid_rrule">Invalid RRule: %s</string>
+
+    <string name="entity_selector_type">Entity selector type</string>
+    <string name="payee_selector_type_title">Payee selector type</string>
+    <string name="payee_selector_type_summary">Configure primarily using search or showing list when choosing payee.</string>
+    <string name="project_selector_type_title">Project selector type</string>
+    <string name="project_selector_type_summary">Configure primarily using search or showing list when choosing project.</string>
+    <string name="location_selector_type_title">Location selector type</string>
+    <string name="location_selector_type_summary">Configure primarily using search or showing list when choosing location.</string>
+    <string name="selector_type_summary">Selector type for entities</string>
+    <string-array name="selector_type_entries">
+        <item>Button on left: Search, Center: List</item>
+        <item>Button on left: List, Center: Search</item>
+    </string-array>
+
+    <string-array name="budget_sort_order">
+        <item>By Name</item>
+        <item>By Current Period End Date</item>
+    </string-array>
+    <string name="card_issuer_mir">Mir</string>
+
+    <string name="downloading_picture_from_dropbox">Downloading from Dropbox …</string>
+    <string name="downloading_picture_from_google_drive">Downloading from Google Drive …</string>
+    <string name="missing_picture_file">%1$s (missing)</string>
+
+    <string name="export_tx_ids">Export TX ID</string>
+
 </resources>

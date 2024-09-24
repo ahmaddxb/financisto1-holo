@@ -58,9 +58,11 @@ public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
     }
 
     private void confirmSelection() {
-        Intent data = new Intent();
-        data.putExtra(SELECTED_CATEGORY_ID, navigator.selectedCategoryId);
-        setResult(RESULT_OK, data);
+        if (navigator != null) {
+            Intent data = new Intent();
+            data.putExtra(SELECTED_CATEGORY_ID, navigator.selectedCategoryId);
+            setResult(RESULT_OK, data);
+        }
         finish();
     }
 
@@ -96,7 +98,12 @@ public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
 
     @Override
     protected ListAdapter createAdapter(Cursor cursor) {
-        bBack.setEnabled(navigator.canGoBack());
+        if (navigator == null) {
+            return null;
+        }
+        if (bBack != null) {
+            bBack.setEnabled(navigator.canGoBack());
+        }
         return new CategoryAdapter(navigator.categories);
     }
 

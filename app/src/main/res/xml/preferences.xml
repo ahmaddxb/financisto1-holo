@@ -161,6 +161,29 @@
                     android:summary="@string/remember_last_project_summary"
                     android:title="@string/remember_last_project" />
             </PreferenceCategory>
+            <PreferenceCategory android:title="@string/entity_selector_type">
+                <ListPreference
+                    android:defaultValue="search"
+                    android:entries="@array/selector_type_entries"
+                    android:entryValues="@array/selector_type_values"
+                    android:key="payee_selector_type"
+                    android:title="@string/payee_selector_type_title"
+                    android:summary="@string/payee_selector_type_summary" />
+                <ListPreference
+                    android:defaultValue="search"
+                    android:entries="@array/selector_type_entries"
+                    android:entryValues="@array/selector_type_values"
+                    android:key="project_selector_type"
+                    android:title="@string/project_selector_type_title"
+                    android:summary="@string/project_selector_type_summary" />
+                <ListPreference
+                    android:defaultValue="search"
+                    android:entries="@array/selector_type_entries"
+                    android:entryValues="@array/selector_type_values"
+                    android:key="location_selector_type"
+                    android:title="@string/location_selector_type_title"
+                    android:summary="@string/location_selector_type_summary" />
+            </PreferenceCategory>
             <PreferenceCategory android:title="@string/screen_layout">
                 <CheckBoxPreference
                     android:defaultValue="false"
@@ -388,6 +411,16 @@
             android:key="dropbox_upload_autobackup"
             android:summary="@string/dropbox_upload_autobackup_summary"
             android:title="@string/dropbox_upload_autobackup" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="dropbox_upload_pictures"
+            android:summary="@string/dropbox_upload_pictures_summary"
+            android:title="@string/dropbox_upload_pictures" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="dropbox_download_pictures"
+            android:summary="@string/dropbox_download_pictures_summary"
+            android:title="@string/dropbox_download_pictures" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/gdocs_backup">
@@ -414,6 +447,16 @@
             android:key="google_drive_upload_autobackup"
             android:summary="@string/google_drive_upload_autobackup_summary"
             android:title="@string/google_drive_upload_autobackup" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="google_drive_upload_pictures"
+            android:summary="@string/google_drive_upload_pictures_summary"
+            android:title="@string/google_drive_upload_pictures" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="google_drive_download_pictures"
+            android:summary="@string/google_drive_download_pictures_summary"
+            android:title="@string/google_drive_download_pictures" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/exchange_rates">

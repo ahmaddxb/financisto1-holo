@@ -243,7 +243,7 @@
   <string name="gdocs_folder_error">讀寫 Google Drive 目錄時發生錯誤。</string>
   <string name="gdocs_service_error">Google Drive 目前無法提供服務。</string>
   <string name="gdocs_io_error">連線到 Google Drive 時發生錯誤。</string>
-
+  <string name="google_drive_error">無法讀寫 Google Drive，請檢查授權與備份目錄設定。</string>
 
   <string name="success">成功! %s</string>
   <string name="fail">失敗…</string>
@@ -493,7 +493,7 @@
   <string name="enable_widget">啟用小工具</string>
   <string name="enable_widget_summary">在小工具顯示帳戶總額</string>
   <string name="attach_picture">附加照片</string>
-  <string name="new_picture">拍攝照片</string>
+  <string name="new_picture">選取照片</string>
   <string name="credits">信用額度</string>
   <string name="sort_by_title">根據標題排序</string>
   <string name="sort_all_by_title">全部根據標題排序</string>
@@ -667,7 +667,19 @@
   <string name="dropbox_upload_backup_summary">將資料庫備份檔上傳到 Dropbox</string>
   <string name="dropbox_upload_autobackup">上傳自動備份</string>
   <string name="dropbox_upload_autobackup_summary">將資料庫自動備份檔上傳到 Dropbox</string>
+  <string name="dropbox_upload_pictures">上傳照片</string>
+  <string name="dropbox_upload_pictures_summary">將附加照片上傳到 Dropbox</string>
+  <string name="dropbox_download_pictures">下載照片</string>
+  <string name="dropbox_download_pictures_summary">從 Dropbox 下載本機沒有的附加照片</string>
   <string name="dropbox_uploading_file">正在上傳檔案到 Dropbox ...</string>
+  <string name="google_drive_upload_backup">上傳備份</string>
+  <string name="google_drive_upload_backup_summary">將資料庫備份檔上傳到 Google Drive</string>
+  <string name="google_drive_upload_autobackup">上傳自動備份</string>
+  <string name="google_drive_upload_autobackup_summary">將資料庫自動備份檔上傳到 Google Drive</string>
+  <string name="google_drive_upload_pictures">上傳照片</string>
+  <string name="google_drive_upload_pictures_summary">將附加照片上傳到 Google Drive</string>
+  <string name="google_drive_download_pictures">下載照片</string>
+  <string name="google_drive_download_pictures_summary">從 Google Drive 下載本機沒有的附加照片</string>
   <string name="exchange_rates">匯率</string>
   <string name="no_exchange_rates">無匯率</string>
   <string name="exchange_rate">匯率</string>
@@ -904,4 +916,31 @@
     <item>深色</item>
     <item>淺色</item>
   </string-array>
+  <string name="invalid_rrule">RRule 有誤: %s</string>
+  <string-array name="budget_sort_order">
+    <item>依名稱</item>
+    <item>依本期截止日</item>
+  </string-array>
+
+  <string name="entity_selector_type">實體選取方式</string>
+  <string name="payee_selector_type_title">受款人 選取方式</string>
+  <string name="payee_selector_type_summary">設定選取 受款人 的時候主要用搜尋還是顯示清單</string>
+  <string name="project_selector_type_title">專案 選取方式</string>
+  <string name="project_selector_type_summary">設定選取 專案 的時候主要用搜尋還是顯示清單</string>
+  <string name="location_selector_type_title">地點 選取方式</string>
+  <string name="location_selector_type_summary">設定選取 地點 的時候主要用搜尋還是顯示清單</string>
+  <string name="selector_type_summary">選取實體的方式</string>
+  <string-array name="selector_type_entries">
+        <item>左邊按鈕: 搜尋, 中間: 清單</item>
+        <item>左邊按鈕: 清單, 中間: 搜尋</item>
+    </string-array>
+
+  <string name="downloading_picture_from_dropbox">正在從 Dropbox 下載 …</string>
+  <string name="downloading_picture_from_google_drive">正在從 Google Drive 下載 …</string>
+  <string name="missing_picture_file">%1$s (無法取得檔案)</string>
+
+  <string name="export_splits">匯出分割交易細目</string>
+  <string name="export_split_parents">匯出分割交易彙總</string>
+  <string name="export_tx_ids">匯出交易 ID</string>
+
 </resources>
