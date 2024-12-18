@@ -9,24 +9,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import tw.tib.financisto.R;
 import tw.tib.financisto.adapter.BlotterListAdapter;
+import tw.tib.financisto.model.Account;
 import tw.tib.financisto.model.Category;
 import tw.tib.financisto.model.CategoryTree;
 import tw.tib.financisto.model.CategoryTreeNavigator;
 import tw.tib.financisto.utils.MenuItemInfo;
 import tw.tib.financisto.utils.MyPreferences;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
 
     public static final String SELECTED_CATEGORY_ID = "SELECTED_CATEGORY_ID";
+    public static final String SELECTED_ACCOUNT_ID = "SELECTED_ACCOUNT_ID";
     public static final String EXCLUDED_SUB_TREE_ID = "EXCLUDED_SUB_TREE_ID";
     public static final String INCLUDE_SPLIT_CATEGORY = "INCLUDE_SPLIT_CATEGORY";
+
+    public static final long NO_SELECTED_ACCOUNT = Long.MIN_VALUE;
 
     private int incomeColor;
     private int expenseColor;
@@ -35,6 +44,8 @@ public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
     private Map<Long, String> attributes;
 
     private Button bBack;
+
+    private boolean isShowRecentlyUsedCategory = false;
 
     public CategorySelectorActivity() {
         super(R.layout.category_selector);
@@ -55,6 +66,12 @@ public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
         });
         Button bSelect = findViewById(R.id.bSelect);
         bSelect.setOnClickListener(view -> confirmSelection());
+
+        isShowRecentlyUsedCategory = MyPreferences.isShowRecentlyUsedCategory(this);
+        if (isShowRecentlyUsedCategory) {
+            View v = findViewById(R.id.suggestedCategoriesBarView);
+            if (v != null) v.setVisibility(View.VISIBLE);
+        }
     }
 
     private void confirmSelection() {
@@ -76,6 +93,14 @@ public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
         long excTreeId = -1;
         Intent intent = getIntent();
 
+        if (isShowRecentlyUsedCategory) {
+            var executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                var suggestedCategories = loadSuggestedCategories(intent);
+                runOnUiThread(() -> fillSuggestedCategories(suggestedCategories));
+            });
+        }
+
         if (intent != null) {
             excTreeId = intent.getLongExtra(EXCLUDED_SUB_TREE_ID, -1);
         }
@@ -94,6 +119,68 @@ public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
         }
 
         return null;
+    }
+
+    private class CategoryTag {
+        public long id;
+        public String title;
+
+        public CategoryTag(long id, String title) {
+            this.id = id;
+            this.title = title;
+        }
+    }
+
+    private List<CategoryTag> loadSuggestedCategories(Intent intent) {
+        if (intent == null) {
+            return null;
+        }
+        long selectedAccountId = intent.getLongExtra(SELECTED_ACCOUNT_ID, NO_SELECTED_ACCOUNT);
+        if (selectedAccountId == NO_SELECTED_ACCOUNT) {
+            return null;
+        }
+
+        var c = db.getRecentlyUsedCategories(selectedAccountId, 0);
+
+        var suggestedCategories = new ArrayList<CategoryTag>();
+        int suggestionCount = 0;
+        try (c) {
+            while (c.moveToNext() && suggestionCount < 5) {
+                suggestedCategories.add(new CategoryTag(c.getLong(0), c.getString(1)));
+                suggestionCount += 1;
+            }
+        }
+        return suggestedCategories;
+    }
+
+    private void fillSuggestedCategories(List<CategoryTag> suggestedCategories) {
+        var container = (LinearLayout)findViewById(R.id.suggestedCategoriesBar);
+        Button placeholder = findViewById(R.id.suggestedCategoriesBarLoadingPlaceholder);
+
+        if (suggestedCategories == null || suggestedCategories.isEmpty()) {
+            placeholder.setText(R.string.no_suggestion);
+            return;
+        }
+
+        placeholder.setVisibility(View.GONE);
+
+        for (var c: suggestedCategories) {
+            var v = buildViewForCategory(c);
+            v.setOnClickListener(cv -> {
+                while (navigator.canGoBack()) {
+                    navigator.goBack();
+                }
+                navigator.selectCategory(c.id);
+                confirmSelection();
+            });
+            container.addView(v);
+        }
+    }
+
+    private View buildViewForCategory(CategoryTag c) {
+        var res = new Button(this);
+        res.setText(c.title);
+        return res;
     }
 
     @Override
@@ -126,10 +213,11 @@ public class CategorySelectorActivity extends AbstractListActivity<Cursor> {
         }
     }
 
-    public static boolean pickCategory(Activity activity, boolean forceHierSelector, long selectedId, long excludingTreeId, boolean includeSplit) {
+    public static boolean pickCategory(Activity activity, boolean forceHierSelector, long selectedId, Account selectedAccount, long excludingTreeId, boolean includeSplit) {
         if (forceHierSelector || MyPreferences.isUseHierarchicalCategorySelector(activity)) {
             Intent intent = new Intent(activity, CategorySelectorActivity.class);
             intent.putExtra(CategorySelectorActivity.SELECTED_CATEGORY_ID, selectedId);
+            intent.putExtra(CategorySelectorActivity.SELECTED_ACCOUNT_ID, selectedAccount == null ? NO_SELECTED_ACCOUNT : selectedAccount.getId());
             intent.putExtra(CategorySelectorActivity.EXCLUDED_SUB_TREE_ID, excludingTreeId);
             intent.putExtra(CategorySelectorActivity.INCLUDE_SPLIT_CATEGORY, includeSplit);
             activity.startActivityForResult(intent, R.id.category_pick);
