@@ -12,7 +12,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	package="tw.tib.financisto"
-	android:versionName="2024-12-15" android:versionCode="166"
+	android:versionName="2024-10-08" android:versionCode="165"
     android:installLocation="internalOnly">
 
     <supports-screens
@@ -48,6 +48,8 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />    
 	<permission android:name="tw.tib.financisto.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="tw.tib.financisto.permission.C2D_MESSAGE"/>
+
+	<uses-permission android:name="android.permission.RECEIVE_SMS" />
 
 
     <application
@@ -93,7 +95,16 @@
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 			    <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
 			</intent-filter>
-		</receiver>		
+		</receiver>
+
+		<receiver
+			android:name=".service.SmsReceiver"
+			android:exported="true"
+			android:permission="android.permission.BROADCAST_SMS">
+			<intent-filter android:priority="1000"> <!-- https://stackoverflow.com/a/23732410/365675 -->
+				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
+			</intent-filter>
+		</receiver>
 
 		<service android:name=".service.FinancistoService" android:exported="true"
 			android:permission="android.permission.BIND_JOB_SERVICE">

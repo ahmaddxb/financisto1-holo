@@ -70,9 +70,8 @@ public class RequestPermissionActivity extends Activity {
 
         // camera is not used, sms permission not obtainable with google play install
         //disableToggleIfGranted(Manifest.permission.CAMERA, toggleCamera, toggleCameraWrap);
-        //disableToggleIfGranted(Manifest.permission.RECEIVE_SMS, toggleSms, toggleSmsWrap);
+        disableToggleIfGranted(Manifest.permission.RECEIVE_SMS, toggleSms, toggleSmsWrap);
         toggleCameraWrap.setVisibility(View.GONE);
-        toggleSmsWrap.setVisibility(View.GONE);
 
         disableToggleIfGranted(Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, toggleNotificationListener, toggleNotificationListenerWrap);
 
